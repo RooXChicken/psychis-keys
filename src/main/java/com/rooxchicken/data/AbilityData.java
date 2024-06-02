@@ -17,6 +17,8 @@ public class AbilityData
     public int cooldown1Max;
     public int cooldown2Max;
 
+    public boolean secondLocked = true;
+
     public AbilityData(String name)
     {
         cooldown1 = 0;

@@ -21,6 +21,7 @@ public class HandleData
             case 0: //set ability
                 PsychisKeysClient.playerAbility = Integer.parseInt(data[2]);
                 PsychisKeysClient.abilityData = new AbilityData("" + PsychisKeysClient.playerAbility);
+                PsychisKeysClient.abilityData.secondLocked = !Boolean.parseBoolean(data[3]);
                 PsychisKeysClient.sendChatCommand("hdn_verifymod");
             break;
             case 1: //set cooldown

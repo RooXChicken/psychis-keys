@@ -3,6 +3,7 @@ package com.rooxchicken.event;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.rooxchicken.PsychisKeys;
 import com.rooxchicken.client.PsychisKeysClient;
+import com.rooxchicken.data.AbilityData;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
@@ -26,33 +27,35 @@ public class DrawGUICallback implements HudRenderCallback
         if(PsychisKeysClient.playerAbility == -1)
             return;
 
+        AbilityData abilityData = PsychisKeysClient.abilityData;
+
         int posX = 100;
         int posY = 200;
         double screenScale = 0.08;
 
-        int cooldown1 = PsychisKeysClient.abilityData.cooldown1;
-        int cooldown2 = PsychisKeysClient.abilityData.cooldown2;
+        int cooldown1 = abilityData.cooldown1;
+        int cooldown2 = abilityData.cooldown2;
 
-        int cooldown1Max = PsychisKeysClient.abilityData.cooldown1Max;
-        int cooldown2Max = PsychisKeysClient.abilityData.cooldown2Max;
+        int cooldown1Max = abilityData.cooldown1Max;
+        int cooldown2Max = abilityData.cooldown2Max;
 
         String txt1 = "";
         String txt2 = "";
 
         if(cooldown1 > 0)
-            txt1 += PsychisKeysClient.abilityData.cooldown1;
+            txt1 += abilityData.cooldown1;
         else
             txt1 = "READY";
 
         if(cooldown2 > 0)
-            txt2 += PsychisKeysClient.abilityData.cooldown2;
+            txt2 += abilityData.cooldown2;
         else
             txt2 = "READY";
 
         startScaling(drawContext, screenScale);
         
-        drawContext.drawTexture(PsychisKeysClient.abilityData.texture1, posX, posY, 0, 0, 256, 256);
-        drawContext.drawTexture(PsychisKeysClient.abilityData.texture2, posX+288, posY, 0, 0, 256, 256);
+        drawContext.drawTexture(abilityData.texture1, posX, posY, 0, 0, 256, 256);
+        drawContext.drawTexture(abilityData.texture2, posX+288, posY, 0, 0, 256, 256);
 
         int cooldown1Offset = (int)(256 * ((0.0+cooldown1)/cooldown1Max));
         int cooldown2Offset = (int)(256 * ((0.0+cooldown2)/cooldown2Max));
@@ -60,13 +63,17 @@ public class DrawGUICallback implements HudRenderCallback
         RenderSystem.enableBlend();
         drawContext.setShaderColor(1, 1, 1, 0.5f);
 
-        drawContext.drawTexture(PsychisKeysClient.abilityData.cooldownTexture, posX, posY+256-cooldown1Offset, 0, 0, 256, cooldown1Offset);
-        drawContext.drawTexture(PsychisKeysClient.abilityData.cooldownTexture, posX+288, posY+256-cooldown2Offset, 0, 0, 256, cooldown2Offset);
+        drawContext.drawTexture(abilityData.cooldownTexture, posX, posY+256-cooldown1Offset, 0, 0, 256, cooldown1Offset);
+        drawContext.drawTexture(abilityData.cooldownTexture, posX+288, posY+256-cooldown2Offset, 0, 0, 256, cooldown2Offset);
 
 
         drawContext.setShaderColor(1, 1, 1, 1);
-        drawContext.drawTexture(PsychisKeysClient.abilityData.outlineTexture, posX, posY, 0, 0, 256, 256);
-        drawContext.drawTexture(PsychisKeysClient.abilityData.outlineTexture, posX+288, posY, 0, 0, 256, 256);
+
+        if(abilityData.secondLocked)
+            drawContext.drawTexture(Identifier.of("psychis-keys", "textures/gui/locked.png"), posX+288, posY, 0, 0, 256, 256);
+
+        drawContext.drawTexture(abilityData.outlineTexture, posX, posY, 0, 0, 256, 256);
+        drawContext.drawTexture(abilityData.outlineTexture, posX+288, posY, 0, 0, 256, 256);
 
 		stopScaling(drawContext);
 

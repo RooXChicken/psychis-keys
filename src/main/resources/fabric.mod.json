@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"id": "psychis-keys",
+	"version": "${version}",
+	"name": "Psychis Keys",
+	"description": "Mod that enables the use of keybinds in the Psychis SMP",
+	"authors": [
+		"RooXChicken"
+	],
+	"license": "CC0-1.0",
+	"icon": "assets/psychis-keys/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.rooxchicken.PsychisKeys"
+		],
+		"client": [
+			"com.rooxchicken.client.PsychisKeysClient"
+		]
+	},
+	"mixins": [
+		"psychis-keys.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

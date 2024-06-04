@@ -70,7 +70,10 @@ public class DrawGUICallback implements HudRenderCallback
         drawContext.setShaderColor(1, 1, 1, 1);
 
         if(abilityData.secondLocked)
+        {
             drawContext.drawTexture(Identifier.of("psychis-keys", "textures/gui/locked.png"), posX+288, posY, 0, 0, 256, 256);
+            txt2 = "LOCKED";
+        }
 
         drawContext.drawTexture(abilityData.outlineTexture, posX, posY, 0, 0, 256, 256);
         drawContext.drawTexture(abilityData.outlineTexture, posX+288, posY, 0, 0, 256, 256);

@@ -26,12 +26,20 @@ public class DrawGUICallback implements HudRenderCallback
 
         if(PsychisKeysClient.playerAbility == -1)
             return;
+        
+        int scalingFactor = (int)client.getWindow().getScaleFactor();
 
         AbilityData abilityData = PsychisKeysClient.abilityData;
 
-        int posX = 100;
-        int posY = 200;
-        double screenScale = 0.08;
+        // int posX = 100;
+        // int posY = 200;
+        double scale1 = PsychisKeysClient.abilityElement1.Scale;
+        double pos1X = PsychisKeysClient.abilityElement1.PositionX * (1/scale1);
+        double pos1Y = PsychisKeysClient.abilityElement1.PositionY * (1/scale1);
+
+        double scale2 = PsychisKeysClient.abilityElement2.Scale;
+        double pos2X = PsychisKeysClient.abilityElement2.PositionX * (1/scale2);
+        double pos2Y = PsychisKeysClient.abilityElement2.PositionY * (1/scale2);
 
         int cooldown1 = abilityData.cooldown1;
         int cooldown2 = abilityData.cooldown2;
@@ -52,44 +60,51 @@ public class DrawGUICallback implements HudRenderCallback
         else
             txt2 = "READY";
 
-        startScaling(drawContext, screenScale);
+        startScaling(drawContext, scale1);
+        matrixStack.translate(pos1X, pos1Y, 0);
         
-        drawContext.drawTexture(abilityData.texture1, posX, posY, 0, 0, 256, 256);
-        drawContext.drawTexture(abilityData.texture2, posX+288, posY, 0, 0, 256, 256);
+        drawContext.drawTexture(abilityData.texture1, 0, 0, 0, 0, 64, 64, 64, 64);
+        int cooldown1Offset = (int)(64 * ((0.0+cooldown1)/cooldown1Max));
+        RenderSystem.enableBlend();
+        drawContext.setShaderColor(1, 1, 1, 0.5f);
+        drawContext.drawTexture(abilityData.cooldownTexture, 0, 64-cooldown1Offset, 0, 0, 64, cooldown1Offset, 64, 64);
+        drawContext.setShaderColor(1, 1, 1, 1);
+        drawContext.drawTexture(abilityData.outlineTexture, 0, 0, 0, 0, 64, 64, 64, 64);
+        
+		stopScaling(drawContext);
 
-        int cooldown1Offset = (int)(256 * ((0.0+cooldown1)/cooldown1Max));
-        int cooldown2Offset = (int)(256 * ((0.0+cooldown2)/cooldown2Max));
+        startScaling(drawContext, scale2);
+        matrixStack.translate(pos2X, pos2Y, 0);
+        
+        drawContext.drawTexture(abilityData.texture2, 0, 0, 0, 0, 64, 64, 64, 64);
 
+        int cooldown2Offset = (int)(64 * ((0.0+cooldown2)/cooldown2Max));
         RenderSystem.enableBlend();
         drawContext.setShaderColor(1, 1, 1, 0.5f);
 
-        drawContext.drawTexture(abilityData.cooldownTexture, posX, posY+256-cooldown1Offset, 0, 0, 256, cooldown1Offset);
-        drawContext.drawTexture(abilityData.cooldownTexture, posX+288, posY+256-cooldown2Offset, 0, 0, 256, cooldown2Offset);
-
+        drawContext.drawTexture(abilityData.cooldownTexture, 0, 64-cooldown2Offset, 0, 0, 64, cooldown2Offset, 64, 64);
 
         drawContext.setShaderColor(1, 1, 1, 1);
 
         if(abilityData.secondLocked)
         {
-            drawContext.drawTexture(Identifier.of("psychis-keys", "textures/gui/locked.png"), posX+288, posY, 0, 0, 256, 256);
+            drawContext.drawTexture(Identifier.of("psychis-keys", "textures/gui/locked.png"), 0, 0, 0, 0, 64, 64, 64, 64);
             txt2 = "LOCKED";
         }
-
-        drawContext.drawTexture(abilityData.outlineTexture, posX, posY, 0, 0, 256, 256);
-        drawContext.drawTexture(abilityData.outlineTexture, posX+288, posY, 0, 0, 256, 256);
-
+        drawContext.drawTexture(abilityData.outlineTexture, 0, 0, 0, 0, 64, 64, 64, 64);
+        
 		stopScaling(drawContext);
 
-        double textScale = 6;
-        startScaling(drawContext, screenScale * textScale);
 
-        drawContext.drawCenteredTextWithShadow(textRenderer, txt1, (int)(posX/textScale) + 23, (int)(posY/textScale) - 10, 0xFFFFFFFF);
-        drawContext.drawCenteredTextWithShadow(textRenderer, txt2, (int)(posX/textScale) + 71, (int)(posY/textScale) - 10, 0xFFFFFFFF);
-
+        startScaling(drawContext, scale1*1.5);
+        matrixStack.translate(pos1X/1.5, pos1Y/1.5, 0);
+        drawContext.drawCenteredTextWithShadow(textRenderer, txt1, 23, -10, 0xFFFFFFFF);
         stopScaling(drawContext);
-        
-        //drawContext.drawItem(client.player.getInventory().getMainHandStack(), posX + 4, posY + 4);
-        //drawContext.drawTexture(new Identifier("minecraft:textures/gui/widgets.png"), posX, posY, 0, 22, 24, 24);
+
+        startScaling(drawContext, scale2*1.5);
+        matrixStack.translate(pos2X/1.5, pos2Y/1.5, 0);
+        drawContext.drawCenteredTextWithShadow(textRenderer, txt2, 23, -10, 0xFFFFFFFF);
+        stopScaling(drawContext);
     }
     
     private void startScaling(DrawContext drawContext, double scale)

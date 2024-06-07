@@ -15,6 +15,7 @@ import com.rooxchicken.data.AbilityDesc;
 import com.rooxchicken.event.DrawGUICallback;
 import com.rooxchicken.keybinding.KeyInputHandler;
 import com.rooxchicken.keybinding.Keybind;
+import com.rooxchicken.screen.AbilityElement;
 
 public class PsychisKeysClient implements ClientModInitializer
 {
@@ -24,6 +25,9 @@ public class PsychisKeysClient implements ClientModInitializer
 	public static int playerAbility = -1;
 	public static AbilityData abilityData = new AbilityData("empty");
 	public static ArrayList<AbilityDesc> abilities;
+
+	public static AbilityElement abilityElement1;
+	public static AbilityElement abilityElement2;
 
 	@Override
 	public void onInitializeClient()
@@ -41,6 +45,9 @@ public class PsychisKeysClient implements ClientModInitializer
 			PsychisKeysClient.abilityData = new AbilityData("empty");
 			PsychisKeysClient.playerAbility = -1;
 		});
+
+		abilityElement1 = new AbilityElement(0);
+		abilityElement2 = new AbilityElement(1);
 	}
 
 	public static void sendChatCommand(String msg)

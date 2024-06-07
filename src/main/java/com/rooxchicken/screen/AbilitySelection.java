@@ -177,5 +177,4 @@ public class AbilitySelection extends Screen
     	
     	super.render(context, mouseX, mouseY, delta);
     }
-    
 }

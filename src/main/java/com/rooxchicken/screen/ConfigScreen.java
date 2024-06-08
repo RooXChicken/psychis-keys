@@ -45,6 +45,7 @@ public class ConfigScreen extends Screen
 		resetButton = ButtonWidget.builder(Text.of("Reset"), (button) ->
         {
             PsychisKeysClient.abilityElement1.reset();
+            PsychisKeysClient.abilityElement2.reset();
         }).dimensions(width/2 - 50, height - 30, 100, 20).build();
 
         addDrawableChild(resetButton);
@@ -72,6 +73,8 @@ public class ConfigScreen extends Screen
     	mouseStatus = -1;
         PsychisKeysClient.abilityElement1.MouseStatus = mouseStatus;
         PsychisKeysClient.abilityElement2.MouseStatus = mouseStatus;
+
+        PsychisKeysClient.save();
     	
         return super.mouseReleased(mouseX, mouseY, button);
     }
@@ -79,8 +82,7 @@ public class ConfigScreen extends Screen
     @Override
     public void tick()
     {
-        PsychisKeysClient.abilityElement1.convertPosToScreen();
-        PsychisKeysClient.abilityElement2.convertPosToScreen();
+
     }
     
     @Override

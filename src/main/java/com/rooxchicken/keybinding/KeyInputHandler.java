@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFW;
 
+import com.rooxchicken.client.PsychisKeysClient;
 import com.rooxchicken.screen.ConfigScreen;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.text.Text;
 
@@ -18,9 +20,13 @@ public class KeyInputHandler
 	public static void registerKeyInputs(ArrayList<Keybind> _bindings)
 	{
         bindings = _bindings;
+		KeyBindingHelper.registerKeyBinding(configKey);
 
 		ClientTickEvents.END_CLIENT_TICK.register(client ->
 		{	
+			if(PsychisKeysClient.playerAbility == -1)
+            	return;
+				
 			for(Keybind bind : bindings)
 			{
 				bind.CheckKey();

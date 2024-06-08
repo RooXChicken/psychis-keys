@@ -29,14 +29,10 @@ public class AbilityElement
 	public int MouseStatus = -2;
 	public int ManipulationStatus = -1;
 	
-	public int PositionX;
-	public int PositionY;
+	public int PositionX = -1;
+	public int PositionY = -1;
 
-	public int screenX;
-	public int screenY;
-	public double screenScale;
-
-	public double Scale;
+	public double Scale = -1;
 	public double ScaleX;
 	public double ScaleY;
 	
@@ -45,34 +41,18 @@ public class AbilityElement
 	protected int y1Mod = 0;
 	protected int y2Mod = 64;
 	
-	protected int oldMouseX;
-	protected int oldMouseY;
-	protected int oldPositionX;
-	protected int oldPositionY;
-	protected double oldScale;
+	protected int oldMouseX = 0;
+	protected int oldMouseY = 0;
+	protected int oldPositionX = 0;
+	protected int oldPositionY = 0;
+	protected double oldScale = 0;
 	protected int length;
 
     public AbilityElement(int _index)
     {
         index = _index;
-
-        PositionX = 100 *  index;
-        PositionY = 100;
-        Scale = 1;
+        reset();
     }
-
-	public void convertPosToScreen()
-	{
-		MinecraftClient client = MinecraftClient.getInstance();
-		double scalingFactor = client.getWindow().getScaleFactor();
-
-		screenX = PositionX;//(int)(client.getWindow().getWidth()/(scalingFactor*2)) + PositionX;
-		screenY = PositionY;//(int)(client.getWindow().getHeight()/(scalingFactor*3)*3 + PositionY);
-
-		screenScale = Scale;
-
-        //PsychisKeys.LOGGER.info(Name + ": " + screenX + " | " + screenY + "   |    " + client.getWindow().getWidth()/scalingFactor);
-	}
 	
 	public void HandleLines(ConfigScreen screen, DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY)
 	{
@@ -81,11 +61,11 @@ public class AbilityElement
 
 		int x1, x2, y1, y2;
 		
-		x1 = (int)(screenX + x1Mod); //RIGHT
-        x2 = (int)(screenX + (x2Mod*screenScale)); //LEFT
+		x1 = (int)(PositionX + x1Mod); //RIGHT
+        x2 = (int)(PositionX + (x2Mod*Scale)); //LEFT
         
-        y1 = (int)((screenY + y1Mod)); //DOWN
-        y2 = (int)(screenY + (y2Mod*screenScale)); //UP
+        y1 = (int)((PositionY + y1Mod)); //DOWN
+        y2 = (int)(PositionY + (y2Mod*Scale)); //UP
 		
 		if(ManipulationStatus == 2 && MouseStatus > -1)
 			context.fill(x1, y1, x1+8, y1+8, 0xFFFF00E4);
@@ -181,8 +161,22 @@ public class AbilityElement
 
     public void reset()
     {
-        PositionX = 100 * index;
-        PositionY = 100;
-        Scale = 1;
+        PositionX = 30 * index + 10;
+        PositionY = 20;
+        Scale = 0.4;
+
+        SmallestSize = 0.15;
+    }
+
+    public String save()
+    {
+        return PositionX + "\n" + PositionY + "\n" + Scale + "\n";
+    }
+
+    public void load(Scanner input)
+    {
+        PositionX = Integer.parseInt(input.nextLine());
+        PositionY = Integer.parseInt(input.nextLine());
+        Scale = Double.parseDouble(input.nextLine());
     }
 }

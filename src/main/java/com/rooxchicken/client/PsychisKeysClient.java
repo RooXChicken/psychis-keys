@@ -7,9 +7,15 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import org.lwjgl.glfw.GLFW;
 
+import com.rooxchicken.PsychisKeys;
 import com.rooxchicken.data.AbilityData;
 import com.rooxchicken.data.AbilityDesc;
 import com.rooxchicken.event.DrawGUICallback;
@@ -48,6 +54,8 @@ public class PsychisKeysClient implements ClientModInitializer
 
 		abilityElement1 = new AbilityElement(0);
 		abilityElement2 = new AbilityElement(1);
+
+		load();
 	}
 
 	public static void sendChatCommand(String msg)
@@ -60,5 +68,43 @@ public class PsychisKeysClient implements ClientModInitializer
 		if(handler == null)
 			return;
     	handler.sendChatCommand(msg);
+	}
+
+	public static void load()
+	{
+		File file = new File("psychis-keys.cfg");
+		if(!file.exists())
+		{
+			save();
+			return;
+		}
+		try
+		{
+			Scanner scan = new Scanner(file);
+			abilityElement1.load(scan);
+			abilityElement2.load(scan);
+			scan.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			PsychisKeys.LOGGER.error("Failed to open config file.", e);
+		}
+	}
+
+	public static void save()
+	{
+		File file = new File("psychis-keys.cfg");
+		try
+		{
+			FileWriter write = new FileWriter(file);
+			write.write(abilityElement1.save() + abilityElement2.save());
+
+			write.close();
+
+		}
+		catch (IOException e)
+		{
+			PsychisKeys.LOGGER.error("Failed to save config file.", e);
+		}
 	}
 }

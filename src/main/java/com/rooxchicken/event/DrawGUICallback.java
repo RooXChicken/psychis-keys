@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -19,7 +20,7 @@ public class DrawGUICallback implements HudRenderCallback
     private MatrixStack matrixStack;
 
     @Override
-    public void onHudRender(DrawContext drawContext, float tickDelta)
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickDelta)
     {
         MinecraftClient client = MinecraftClient.getInstance();
         TextRenderer textRenderer = client.textRenderer;

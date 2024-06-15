@@ -27,17 +27,17 @@ public class AbilityData
         cooldown1Max = 1;
         cooldown2Max = 1;
 
-        cooldownTexture = new Identifier("psychis-keys", "textures/cooldown.png");
-        outlineTexture = new Identifier("psychis-keys", "textures/empty.png");
+        cooldownTexture = Identifier.of("psychis-keys", "textures/cooldown.png");
+        outlineTexture = Identifier.of("psychis-keys", "textures/empty.png");
         
         if(name.equals("empty"))
         {
-            texture1 = new Identifier("psychis-keys", "textures/gui/unlock.png");
-            texture2 = new Identifier("psychis-keys", "textures/gui/unlock.png");
+            texture1 = Identifier.of("psychis-keys", "textures/gui/unlock.png");
+            texture2 = Identifier.of("psychis-keys", "textures/gui/unlock.png");
             return;
         }
 
-        texture1 = new Identifier("psychis-keys", "textures/abilities/" + name + "_0.png");
-        texture2 = new Identifier("psychis-keys", "textures/abilities/" + name + "_1.png");
+        texture1 = Identifier.of("psychis-keys", "textures/abilities/" + name + "_0.png");
+        texture2 = Identifier.of("psychis-keys", "textures/abilities/" + name + "_1.png");
     }
 }

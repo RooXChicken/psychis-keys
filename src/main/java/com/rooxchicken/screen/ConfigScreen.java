@@ -99,7 +99,7 @@ public class ConfigScreen extends Screen
     public void render(DrawContext context, int mouseX, int mouseY, float delta)
     {
         MinecraftClient client = MinecraftClient.getInstance();
-		this.renderBackground(context);
+		this.renderBackground(context, mouseX, mouseY, delta);
 		
         RenderSystem.enableBlend();
         PsychisKeysClient.abilityElement1.HandleLines(this, context, textRenderer, mouseX, mouseY);

@@ -101,11 +101,15 @@ public class ConfigScreen extends Screen
         MinecraftClient client = MinecraftClient.getInstance();
 		//this.renderBackground(context, mouseX, mouseY, delta);
 		
+    	super.render(context, mouseX, mouseY, delta);
+
+        
+        
         RenderSystem.enableBlend();
         PsychisKeysClient.abilityElement1.HandleLines(this, context, textRenderer, mouseX, mouseY);
+        RenderSystem.enableBlend();
         PsychisKeysClient.abilityElement2.HandleLines(this, context, textRenderer, mouseX, mouseY);
     	
-    	super.render(context, mouseX, mouseY, delta);
     }
     
 }

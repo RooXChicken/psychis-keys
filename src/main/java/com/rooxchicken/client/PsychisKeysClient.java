@@ -48,8 +48,13 @@ public class PsychisKeysClient implements ClientModInitializer
 		HudRenderCallback.EVENT.register(new DrawGUICallback());
 		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) ->
 		{
+			PsychisKeysClient.playerAbility = -2;
 			PsychisKeysClient.abilityData = new AbilityData("empty");
-			PsychisKeysClient.playerAbility = -1;
+		});
+		ClientPlayConnectionEvents.JOIN.register((handler, sender, client) ->
+		{
+			PsychisKeysClient.playerAbility = -2;
+			PsychisKeysClient.abilityData = new AbilityData("empty");
 		});
 
 		abilityElement1 = new AbilityElement(0);

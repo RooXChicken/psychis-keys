@@ -175,6 +175,6 @@ public class AbilitySelection extends Screen
             clickAction = 2;
         }
     	
-    	super.render(context, mouseX, mouseY, delta);
+    	//super.render(context, mouseX, mouseY, delta);
     }
 }

@@ -103,8 +103,6 @@ public class ConfigScreen extends Screen
 		
     	super.render(context, mouseX, mouseY, delta);
 
-        
-        
         RenderSystem.enableBlend();
         PsychisKeysClient.abilityElement1.HandleLines(this, context, textRenderer, mouseX, mouseY);
         RenderSystem.enableBlend();

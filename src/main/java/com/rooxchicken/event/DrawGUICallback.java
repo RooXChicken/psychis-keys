@@ -25,7 +25,7 @@ public class DrawGUICallback implements HudRenderCallback
         MinecraftClient client = MinecraftClient.getInstance();
         TextRenderer textRenderer = client.textRenderer;
 
-        if(PsychisKeysClient.playerAbility == -1)
+        if(PsychisKeysClient.playerAbility == -2)
             return;
         
         int scalingFactor = (int)client.getWindow().getScaleFactor();

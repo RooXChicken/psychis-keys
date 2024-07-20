@@ -63,6 +63,9 @@ public class HandleData
                 MinecraftClient client = MinecraftClient.getInstance();
                 client.setScreen(new AbilitySelection(Text.of("Ability Selection")));
             break;
+            case 4:
+                PsychisKeysClient.sliding = Boolean.parseBoolean(data[2]);
+            break;
         }
     }
 }

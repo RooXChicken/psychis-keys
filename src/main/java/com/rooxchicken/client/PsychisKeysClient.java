@@ -35,6 +35,8 @@ public class PsychisKeysClient implements ClientModInitializer
 	public static AbilityElement abilityElement1;
 	public static AbilityElement abilityElement2;
 
+	public static boolean sliding = false;
+
 	@Override
 	public void onInitializeClient()
 	{

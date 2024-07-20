@@ -70,7 +70,7 @@ public class AbilitySelection extends Screen
                         index = 0;
                 break;
                 case 2:
-                    PsychisKeysClient.sendChatCommand("hdn_pickability " + index);
+                    PsychisKeysClient.sendChatCommand("hdn_pickability " + PsychisKeysClient.abilities.get(index).index);
                     close();
                 break;
             }

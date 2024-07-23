@@ -36,6 +36,7 @@ public class PsychisKeysClient implements ClientModInitializer
 	public static AbilityElement abilityElement2;
 
 	public static boolean sliding = false;
+	public static DrawGUICallback guiCallback;
 
 	@Override
 	public void onInitializeClient()
@@ -47,7 +48,8 @@ public class PsychisKeysClient implements ClientModInitializer
 		keybinds.add(new Keybind(category, "key.ckb.ability2", GLFW.GLFW_KEY_X, "hdn_ability2"));
 		
 		KeyInputHandler.registerKeyInputs(keybinds);
-		HudRenderCallback.EVENT.register(new DrawGUICallback());
+		guiCallback = new DrawGUICallback();
+		HudRenderCallback.EVENT.register(guiCallback);
 		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) ->
 		{
 			PsychisKeysClient.playerAbility = -2;

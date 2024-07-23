@@ -20,7 +20,7 @@ public class DrawGUICallback implements HudRenderCallback
     private MatrixStack matrixStack;
 
     @Override
-    public void onHudRender(DrawContext drawContext, float tickDelta)
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickDelta)
     {
         MinecraftClient client = MinecraftClient.getInstance();
         TextRenderer textRenderer = client.textRenderer;

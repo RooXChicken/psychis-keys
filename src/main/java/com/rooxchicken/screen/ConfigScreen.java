@@ -17,6 +17,7 @@ import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.sound.Sound;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.sound.SoundCategory;
@@ -102,6 +103,8 @@ public class ConfigScreen extends Screen
 		//this.renderBackground(context, mouseX, mouseY, delta);
 		
     	super.render(context, mouseX, mouseY, delta);
+
+        PsychisKeysClient.guiCallback.onHudRender(context, RenderTickCounter.ZERO);
 
         RenderSystem.enableBlend();
         PsychisKeysClient.abilityElement1.HandleLines(this, context, textRenderer, mouseX, mouseY);

@@ -108,7 +108,7 @@ public class AbilitySelection extends Screen
     public void render(DrawContext context, int mouseX, int mouseY, float delta)
     {
         MinecraftClient client = MinecraftClient.getInstance();
-		this.renderBackground(context);
+		this.renderBackground(context, mouseX, mouseY, delta);
 		
         RenderSystem.enableBlend();
         context.drawTexture(bgTexture, width/2 - 128, height/2 - 128, 0, 0, 256, 256);
